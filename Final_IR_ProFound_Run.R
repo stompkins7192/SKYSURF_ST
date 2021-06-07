@@ -166,7 +166,7 @@ for(i in 1:length(lst)){
                       compress = TRUE, create_ext = TRUE, create_file = FALSE, overwrite_file = FALSE)
     ###Write the Header for this Extension (Copy of the Original)
     Rfits_write_header(filename = paste0(stub,"FITS_Maps/",RF_image$keyvalues$ROOTNAME,'_flt_profound.fits'), 
-                       keyvalues = ext3_header$keyvalues, ext = 3, create_ext = FALSE)
+                       keyvalues = ext2_header$keyvalues, ext = 3, create_ext = FALSE)
     
     #Properly Name the Extension
     Rfits_write_key(filename = paste0(stub,"FITS_Maps/",RF_image$keyvalues$ROOTNAME,'_flt_profound.fits'), keyname = 'EXTNAME', keyvalue = 'SKYRMS_MAP_1', ext = 3)
@@ -178,7 +178,7 @@ for(i in 1:length(lst)){
                       integer = '16')
     ##Write the Header for this Extension (Copy of the Original )
     Rfits_write_header(filename = paste0(stub,"FITS_Maps/",RF_image$keyvalues$ROOTNAME,'_flt_profound.fits'), 
-                       keyvalues = ext4_header$keyvalues, ext = 4, create_ext = FALSE)
+                       keyvalues = ext2_headerr$keyvalues, ext = 4, create_ext = FALSE)
     
     #Properly Name the Extension
     Rfits_write_key(filename = paste0(stub,"FITS_Maps/",RF_image$keyvalues$ROOTNAME,'_flt_profound.fits'), keyname = 'EXTNAME', keyvalue = 'BAD_PIXEL_MAP_1', ext = 4)

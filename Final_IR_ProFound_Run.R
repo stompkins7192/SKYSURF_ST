@@ -154,7 +154,7 @@ for(i in 1:length(lst)){
     ###Write SkyMap 1 as Extension 2
     Rfits_write_image(SKY$sky, filename = paste0(stub,"FITS_Maps/",RF_image$keyvalues$ROOTNAME,'_flt_profound.fits'), 
                       compress = TRUE, create_ext = TRUE, create_file = FALSE, overwrite_file = FALSE)
-    #Write the Heade,r for this Extension (Copy of the Original)
+    #Write the Header for this Extension (Copy of the Original)
     Rfits_write_header(filename = paste0(stub,"FITS_Maps/",RF_image$keyvalues$ROOTNAME,'_flt_profound.fits'), 
                        keyvalues = ext2_header$keyvalues, ext = 2, create_ext = FALSE)
     
@@ -192,7 +192,7 @@ for(i in 1:length(lst)){
                        keyvalues = ext2_header$keyvalues, ext = 5, create_ext = FALSE)
     
     #Properly Name the Extension
-    Rfits_write_key(filename = paste0(stub,"FITS_Maps/",RF_image$keyvalues$ROOTNAME,'_flt_profound.fits'), keyname = 'EXTNAME', keyvalue = 'BAD_PIXEL_MAP_1', ext = 5)
+    Rfits_write_key(filename = paste0(stub,"FITS_Maps/",RF_image$keyvalues$ROOTNAME,'_flt_profound.fits'), keyname = 'EXTNAME', keyvalue = 'OBJECTS_REDO_1', ext = 5)
     
    
   }

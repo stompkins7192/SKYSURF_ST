@@ -248,7 +248,7 @@ for(i in 1:length(lst)){
   
   RMS_erorr = 100 * mean(abs(log10(SKY1$skyRMS/fake_rms) * log(10)), na.rm = TRUE)
   percent_sky = (good_pix / length(image1$imDat))*100 #Calculate the Percentage of Sky Pixels
-  percent_sky = signif(percent_sky, digits = 4) 
+  percent_sky = signif(percent_sky, digits = 8) 
 
   
 

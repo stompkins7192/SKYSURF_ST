@@ -21,7 +21,7 @@ start_time = Sys.time()
 
 ###True/False Toggles For Different Functions 
 
-#Toggling These On And Off Can Help With The Speed Of BugFixing
+#Toggling These On And Off Can Help With The Speed Of Bug Fixing
 #write_file works and is by far the slowest step
 
 write_file = TRUE #Do You Want The ProFound Output FITS File? 
@@ -33,7 +33,7 @@ write_9panel_png = TRUE #Do You Want A Diagnostic Grid For The Image Saved As A 
 write_CSV = TRUE #Do You Want A CSV Of Useful Data Output? 
 #WARNING OVERWRITES PREVIOUS #WORKS ON IR IMAGES
 
-write_skymap_png = TRUE #Do You Want A SkyMap PNG With The Object and Bad Pixel Maps? 
+write_skymap_png = FALSE #Do You Want A SkyMap PNG With The Object and Bad Pixel Maps? 
 #WARNING OVERWRITES PREVIOUS #WORKS ON IR IMAGES
 
 
@@ -106,6 +106,9 @@ for(i in 1:length(lst)){
 
   # mask = NULL
   
+  
+  mag01 = -2.5*log10(RF_image$keyvalues$PHOTFLAM) - 21.10 - 5*log10(RF_image$keyvalues$PHOTPLAM) + 18.692
+
   #ASGR: a lot of these options are just the defaults. Pros and cons to listing them, but fine with you putting it in to make it all clearer.
   
   SKY = profoundProFound(image$imDat, verbose=FALSE, skycut = 1.5, pixcut = 4, 
@@ -113,7 +116,7 @@ for(i in 1:length(lst)){
                          type = 'bicubic', skytype='median', redosegim=TRUE, boxiters=6, mask=newmask$segim, 
                          box=c(image$keyvalues$NAXIS1 / 3,image$keyvalues$NAXIS2 / 3), 
                          grid=c(image$keyvalues$NAXIS1 / 3,image$keyvalues$NAXIS2 / 3),
-                         header = NULL)
+                         header = NULL, magzero = mag01)
 
   
   
@@ -178,7 +181,7 @@ for(i in 1:length(lst)){
                       integer = '16')
     ##Write the Header for this Extension (Copy of the Original )
     Rfits_write_header(filename = paste0(stub,"FITS_Maps/",RF_image$keyvalues$ROOTNAME,'_flt_profound.fits'), 
-                       keyvalues = ext2_headerr$keyvalues, ext = 4, create_ext = FALSE)
+                       keyvalues = ext2_header$keyvalues, ext = 4, create_ext = FALSE)
     
     #Properly Name the Extension
     Rfits_write_key(filename = paste0(stub,"FITS_Maps/",RF_image$keyvalues$ROOTNAME,'_flt_profound.fits'), keyname = 'EXTNAME', keyvalue = 'BAD_PIXEL_MAP_1', ext = 4)

@@ -100,20 +100,30 @@ for(i in 1:length(lst)){
   #ASGR: a lot of these options are just the defaults. Pros and cons to listing them, but fine with you putting it in to make it all clearer.
   #ASGR: It will work like this, but really box and grid should be integer inputs, so wrap the inputs in "ceiling".
   
+  if(RF_image1$keyvalues$INSTRUME == "WFC3"){   #KeyValue Names Are Slightly Different For ACS vs WFC3UVIS
+    mag01 = -2.5*log10(image1$keyvalues$PHOTFLAM) - 21.10 - 5*log10(image1$keyvalues$PHOTPLAM) + 18.692
+    mag02 = -2.5*log10(image2$keyvalues$PHOTFLAM) - 21.10 - 5*log10(image2$keyvalues$PHOTPLAM) + 18.692}
+  if(RF_image1$keyvalues$INSTRUME == "ACS"){
+    mag01 = -2.5*log10(image1$keyvalues$PHOTFLAM) - 5*log10(image1$keyvalues$PHOTPLAM) - 2.408
+    mag02 = -2.5*log10(image2$keyvalues$PHOTFLAM) - 5*log10(image2$keyvalues$PHOTPLAM) - 2.408
+  }
+  
+  
+  
   ###CREATE A PROFOUND DATA OUTPUT STRUCTURE FOR EACH CHIP ON ACS OR WFC3UVIS
   SKY1 = profoundProFound(image1$imDat, verbose=FALSE, skycut = 1.5, pixcut = 4, 
                          SBdilate = 2, doclip = TRUE, redosky= TRUE, redoskysize= 13, 
                          type = 'bicubic', skytype='median', redosegim=TRUE, boxiters=6, mask=newmask$objects, 
                          box=c(ceiling(image1$keyvalues$NAXIS1 / 3), ceiling(image1$keyvalues$NAXIS2 / 3)), 
                          grid=c(ceiling(image1$keyvalues$NAXIS1 / 3), ceiling(image1$keyvalues$NAXIS2 / 3)),
-                         header = NULL)
+                         header = NULL, magzero = mag01)
   
   SKY2 = profoundProFound(image2$imDat, verbose=FALSE, skycut = 1.5, pixcut = 4, 
                           SBdilate = 2, doclip = TRUE, redosky= TRUE, redoskysize= 13, 
                           type = 'bicubic', skytype='median', redosegim=TRUE, boxiters=6, mask=newmask2$objects, 
                           box=c(ceiling(image2$keyvalues$NAXIS1 / 3), ceiling(image2$keyvalues$NAXIS2 / 3)), 
                           grid=c(ceiling(image2$keyvalues$NAXIS1 / 3), ceiling(image2$keyvalues$NAXIS2 / 3)),
-                          header = NULL)
+                          header = NULL, magzero = mag02)
   
 
   #ASGR: you can remove the numeric='32' from the integer images.
